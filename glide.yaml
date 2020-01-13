@@ -1,0 +1,8 @@
+package: github.com/cybavo/MVAULT_MOCK_SERVER
+import:
+- package: github.com/astaxie/beego
+  version: v1.11.1
+  subpackages:
+  - logs
+  - orm
+  - plugins/cors

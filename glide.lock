@@ -1,0 +1,24 @@
+hash: b1ea06511fa5c0d39cb469e410445ee207c1f0d363a65a4dd63e753128f14f7f
+updated: 2019-06-26T11:59:38.985452+08:00
+imports:
+- name: github.com/astaxie/beego
+  version: 1b6edafc96ad27b6515fafeccd7339dda3e997b1
+  subpackages:
+  - config
+  - context
+  - context/param
+  - grace
+  - logs
+  - orm
+  - plugins/cors
+  - session
+  - toolbox
+  - utils
+- name: golang.org/x/crypto
+  version: 74369b46fc6756741c016591724fd1cb8e26845f
+  subpackages:
+  - acme
+  - acme/autocert
+- name: gopkg.in/yaml.v2
+  version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
+testImports: []
