@@ -60,6 +60,10 @@ type GetWalletsResponse struct {
 	TotalCount int64          `json:"total_count,omitempty"`
 }
 
+type GetWalletBalanceResponse struct {
+	Balance string `json:"balance"`
+}
+
 func GetTransactionInfo(request *GetTransactionsInfoRequest) (response *GetTransactionsInfoResponse, err error) {
 	jsonRequest, err := json.Marshal(request)
 	if err != nil {
@@ -87,5 +91,18 @@ func GetWallets(qs []string) (response *GetWalletsResponse, err error) {
 	err = json.Unmarshal(resp, response)
 
 	logs.Debug("GetWallets() => ", response)
+	return
+}
+
+func GetWalletBalance(qs []string) (response *GetWalletBalanceResponse, err error) {
+	resp, err := makeRequest("GET", "/v1/api/wallets/balance", qs, nil)
+	if err != nil {
+		return
+	}
+
+	response = &GetWalletBalanceResponse{}
+	err = json.Unmarshal(resp, response)
+
+	logs.Debug("GetWalletBalance() => ", response)
 	return
 }

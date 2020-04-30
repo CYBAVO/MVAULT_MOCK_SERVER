@@ -83,3 +83,22 @@ func (c *OuterController) GetWallets() {
 
 	c.Data["json"] = resp
 }
+
+// @Title Get wallet balance
+// @router /wallets/balance [get]
+func (c *OuterController) GetWalletBalance() {
+	defer c.ServeJSON()
+
+	qs := getQueryString(c.Ctx)
+	if qs == nil {
+		c.AbortWithError(http.StatusBadRequest, errors.New("no required info"))
+	}
+
+	resp, err := api.GetWalletBalance(qs)
+	if err != nil {
+		logs.Error("GetWalletBalance failed", err)
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+
+	c.Data["json"] = resp
+}

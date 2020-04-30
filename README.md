@@ -56,6 +56,8 @@
 		```
 	**NOTE: how to adjust a successful transaction, you need to check if success = true and block number is not 0 
 	
+#### Query wallet list by given cryptocurrency
+
 - **GET** /v1/api/wallets
 	- Request
 		- Query
@@ -71,7 +73,7 @@
 			- `request_number`: Count of returning wallets
 		- Sample:
 		```
-		http://localhost:8889/v1/mock/wallets?currency=60&start_index=0&token_address=0xd1d8d3fd8bc9e88c4767e46be7ce970683f92811&request_number=1000
+		/v1/api/wallets?currency=60&start_index=0&token_address=0xd1d8d3fd8bc9e88c4767e46be7ce970683f92811&request_number=1000
 		```
 	- Response
 		- Params
@@ -116,6 +118,31 @@
 		}
 		```
 
+#### Query wallet balance
+
+- **GET** /v1/api/wallets/balance
+
+	Query wallet balance
+	
+	- Request
+		- Query
+			- `currency`: Wallet currency
+			- `token_address`: Wallet token address
+			- `address`: Wallet address
+		- Sample:
+		```
+		/v1/api/wallets/balance?currency=60&token_address=0x1be7cfd61aa8daaa9ff2f3b8820888f09462d037&address=0x4a7c66d3E7C7d2b0A4FDE97F75975433Ace9c643
+		```
+		
+	- Response
+		- Params
+		    - `balance`: wallet balance
+		- Sample:
+		```
+		{
+		  "balance": "0.1"
+		}
+		```
 
 # Mock Server
 
@@ -127,7 +154,7 @@
 -	mockserver.app.conf
 
 ```
-api_server_url=""
+api_server_url="API_SERVER_URL"
 ```
 
 ### Query API token
@@ -152,4 +179,10 @@ http://localhost:8889/v1/mock/transactions/info
 
 ```
 curl http://localhost:8889/v1/mock/wallets?currency=60&start_index=0&token_address=0xd1d8d3fd8bc9e88c4767e46be7ce970683f92811&request_number=1000
+```
+
+### Query wallet balance
+
+```
+curl http://localhost:8889/v1/mock/wallets/balance?currency=60&token_address=0x1be7cfd61aa8daaa9ff2f3b8820888f09462d037&address=0x4a7c66d3E7C7d2b0A4FDE97F75975433Ace9c643
 ```
