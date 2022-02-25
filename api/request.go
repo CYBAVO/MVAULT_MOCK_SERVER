@@ -51,8 +51,17 @@ type GetTransactionsInfoResponse struct {
 }
 
 type AddressItem struct {
-	Address string `json:"address"`
-	Balance string `json:"balance"`
+	UserID              int64  `json:"user_id"`
+	UserRegisterAccount string `json:"user_register_account"`
+	UserName            string `json:"user_name"`
+	UserEnmail          string `json:"user_email"`
+	Curency             int64  `json:"currency"`
+	TokenAddress        string `json:"token_address"`
+	WalletID            int64  `json:"wallet_id"`
+	WalletAddress       string `json:"wallet_address"`
+	BalanceInvalidated  bool   `json:"balance_invalidated"`
+	Balance             string `json:"balance"`
+	BalanceTime         int64  `json:"balance_time"`
 }
 
 type GetWalletsResponse struct {
