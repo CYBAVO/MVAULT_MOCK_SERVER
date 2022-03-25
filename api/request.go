@@ -115,3 +115,16 @@ func GetWalletBalance(qs []string) (response *GetWalletBalanceResponse, err erro
 	logs.Debug("GetWalletBalance() => ", response)
 	return
 }
+
+func GetUserWalletList(qs []string) (response *GetWalletsResponse, err error) {
+	resp, err := makeRequest("GET", "/v1/api/user/wallets", qs, nil)
+	if err != nil {
+		return
+	}
+
+	response = &GetWalletsResponse{}
+	err = json.Unmarshal(resp, response)
+
+	logs.Debug("GetUserWalletList() => ", response)
+	return
+}
