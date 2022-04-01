@@ -62,6 +62,7 @@ type AddressItem struct {
 	BalanceInvalidated  bool   `json:"balance_invalidated"`
 	Balance             string `json:"balance"`
 	BalanceTime         int64  `json:"balance_time"`
+	ChainID             int64  `json:"chain_id"`
 }
 
 type GetWalletsResponse struct {

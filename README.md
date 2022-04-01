@@ -96,6 +96,7 @@
 			- `balance_invalidated`: if balance is invalid
 			- `balance`: balance of wallet
 			- `balance_time`: last time to get balance
+			- `chain_id`: currency's chain id
 		- Sample:
 		```
 		{
@@ -144,6 +145,62 @@
 		}
 		```
 
+#### Query wallet list by given user's unique token
+
+- **GET** /v1/api/user/wallets
+	- Request
+		- Query
+			- `unique_token`: Specified the user's unique token
+			- `start_index`: Index of starting wallets
+			- `request_number`: Count of returning wallets
+		- Sample:
+		```
+		/v1/api/user/wallets?unique_token=GOOG-12345abc&start_index=0&request_number=1000
+		```
+	- Response
+		- Params
+		    - `total_count`: total wallet count of currecy/token. Due to performance concern, this field only shows when `start_index` is 0 (first page)
+			- `user_id`: user unique id
+			- `user_register_account`: user register method, 可以用以下prefix檢查該用戶用什麼方式註冊
+				- `GOOG-`: Google
+				- `AXCEL-`: AXCEL
+				- `FB-`: Facebook
+				- `FORYOU-`: Foryou
+				- `LINE-`: LINE
+				- `WECH-`: Wechat
+				- `MOCK-`: Mock
+			- `user_name`: user name if have
+			- `user_email`: user Email if have
+			- `currency`
+			- `token_address`
+			- `wallet_id`
+			- `wallet_address`: Address of wallet
+			- `balance_invalidated`: if balance is invalid
+			- `balance`: balance of wallet
+			- `balance_time`: last time to get balance
+			- `chain_id`: currency's chain id
+		- Sample:
+		```
+		{
+		  "addresses": [
+		    {
+		      "user_id": 393,
+		      "user_register_account": "MOCK-VVVToken203543",
+		      "user_name": "UserVVVToken203543",
+		      "user_email": "",
+		      "currency": 60,
+		      "token_address": "0xd1d8d3fd8bc9e88c4767e46be7ce970683f92811",
+		      "wallet_id": 637254071,
+		      "wallet_address": "0x24cd8c0A6F8c48E70a9Ce1CEC6D3E1fAd0913089",
+		      "balance_invalidated": false,
+		      "balance": "0",
+		      "balance_time": 1577250748
+		    }
+		  ],
+		  "total_count": 1
+		}
+		```
+
 # Mock Server
 
 ### How to build
@@ -185,4 +242,10 @@ curl http://localhost:8889/v1/mock/wallets?currency=60&start_index=0&token_addre
 
 ```
 curl http://localhost:8889/v1/mock/wallets/balance?currency=60&token_address=0x1be7cfd61aa8daaa9ff2f3b8820888f09462d037&address=0x4a7c66d3E7C7d2b0A4FDE97F75975433Ace9c643
+```
+
+### Query wallet list by user unique token
+
+```
+curl http://localhost:8889/v1/mock/user/wallets?unique_token=GOOG-12345abc&start_index=0&request_number=1000
 ```
