@@ -112,7 +112,8 @@
 		      "wallet_address": "0x24cd8c0A6F8c48E70a9Ce1CEC6D3E1fAd0913089",
 		      "balance_invalidated": false,
 		      "balance": "0",
-		      "balance_time": 1577250748
+		      "balance_time": 1577250748,
+			  "chain_id": 3
 		    }
 		  ],
 		  "total_count": 1
@@ -194,12 +195,46 @@
 		      "wallet_address": "0x24cd8c0A6F8c48E70a9Ce1CEC6D3E1fAd0913089",
 		      "balance_invalidated": false,
 		      "balance": "0",
-		      "balance_time": 1577250748
+		      "balance_time": 1577250748,
+			  "chain_id": 3
 		    }
 		  ],
 		  "total_count": 1
 		}
 		```
+#### Query wallet list by given user's unique token
+
+- **GET** /v1/api/wallets/currencies
+	- Request
+		- Sample:
+		```
+		/v1/api/wallets/currencies
+		```
+	- Response
+		- Params
+		    - `currency`: currency's BIP44
+			- `currency_name`: currency's name
+			- `token_name`: token name in blockchain 
+			- `token_symbol`: token symbol in blockchain
+			- `token_contract_address`: contract address
+			- `token_decimals`: token decimal in blockchain
+			- `chain_id`: currency's chain id
+		- Sample:
+		```
+		{
+		  "currencies": [
+        	{
+            	"currency": 60,
+            	"currency_name": "ETH",
+            	"token_name": "etherlands chunk",
+            	"token_symbol": "ELC",
+            	"token_contract_address": "0x45072d88faea89dd42791808f8b491ab70b279fa",
+            	"token_decimals": "0",
+           	 "chain_id": 3
+        	}]
+		}
+		```
+
 
 # Mock Server
 
@@ -248,4 +283,10 @@ curl http://localhost:8889/v1/mock/wallets/balance?currency=60&token_address=0x1
 
 ```
 curl http://localhost:8889/v1/mock/user/wallets?unique_token=GOOG-12345abc&start_index=0&request_number=1000
+```
+
+### Query supported currencies
+
+```
+curl http://localhost:8889/v1/mock/wallets/currencies
 ```

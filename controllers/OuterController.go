@@ -121,3 +121,17 @@ func (c *OuterController) GetUserWalletList() {
 
 	c.Data["json"] = resp
 }
+
+// @Title Get wallet balance
+// @router /user/wallets [post]
+func (c *OuterController) GetSupportedCurrencies() {
+	defer c.ServeJSON()
+
+	resp, err := api.GetSupportedCurrencies()
+	if err != nil {
+		logs.Error("api.GetSupportedCurrencies failed", err)
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+
+	c.Data["json"] = resp
+}

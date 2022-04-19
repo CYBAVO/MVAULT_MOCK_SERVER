@@ -74,6 +74,20 @@ type GetWalletBalanceResponse struct {
 	Balance string `json:"balance"`
 }
 
+type CurrencyInfo struct {
+	Currency             int64  `json:"currency"`
+	CurrencyName         string `json:"currency_name"`
+	TokenName            string `json:"token_name,omitempty"`
+	TokenSymbol          string `json:"token_symbol,omitempty"`
+	TokenContractAddress string `json:"token_contract_address,omitempty"`
+	TokenDecimals        string `json:"token_decimals,omitempty"`
+	ChainID              int64  `json:"chain_id"`
+}
+
+type SupportedCurrenciesResponse struct {
+	Currenices []CurrencyInfo `json:"currencies"`
+}
+
 func GetTransactionInfo(request *GetTransactionsInfoRequest) (response *GetTransactionsInfoResponse, err error) {
 	jsonRequest, err := json.Marshal(request)
 	if err != nil {
@@ -127,5 +141,18 @@ func GetUserWalletList(qs []string) (response *GetWalletsResponse, err error) {
 	err = json.Unmarshal(resp, response)
 
 	logs.Debug("GetUserWalletList() => ", response)
+	return
+}
+
+func GetSupportedCurrencies() (response *SupportedCurrenciesResponse, err error) {
+	resp, err := makeRequest("GET", "/v1/api/wallets/currencies", nil, nil)
+	if err != nil {
+		return
+	}
+
+	response = &SupportedCurrenciesResponse{}
+	err = json.Unmarshal(resp, response)
+
+	logs.Debug("GetSupportedCurrencies() => ", response)
 	return
 }
