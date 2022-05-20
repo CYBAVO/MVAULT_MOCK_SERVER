@@ -63,6 +63,7 @@ type AddressItem struct {
 	Balance             string `json:"balance"`
 	BalanceTime         int64  `json:"balance_time"`
 	ChainID             int64  `json:"chain_id"`
+	WalletName          string `json:"wallet_name,omitempty"`
 }
 
 type GetWalletsResponse struct {
