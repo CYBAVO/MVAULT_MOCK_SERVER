@@ -113,7 +113,7 @@
 		      "balance_invalidated": false,
 		      "balance": "0",
 		      "balance_time": 1577250748,
-			  "chain_id": 3
+			  "chain_id": 3,
 		    }
 		  ],
 		  "total_count": 1
@@ -180,6 +180,7 @@
 			- `balance`: balance of wallet
 			- `balance_time`: last time to get balance
 			- `chain_id`: currency's chain id
+			- `wallet_name`: user defined wallet name
 		- Sample:
 		```
 		{
@@ -196,7 +197,8 @@
 		      "balance_invalidated": false,
 		      "balance": "0",
 		      "balance_time": 1577250748,
-			  "chain_id": 3
+			  "chain_id": 3,
+			  "wallet_name": "Just Test"
 		    }
 		  ],
 		  "total_count": 1
