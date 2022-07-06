@@ -21,4 +21,5 @@ func init() {
 	beego.Router("/v1/mock/wallets/balance", &controllers.OuterController{}, "get:GetWalletBalance")
 	beego.Router("/v1/mock/user/wallets", &controllers.OuterController{}, "get:GetUserWalletList")
 	beego.Router("/v1/mock/wallets/currencies", &controllers.OuterController{}, "get:GetSupportedCurrencies")
+	beego.Router("/v1/mock/transactions/currency", &controllers.OuterController{}, "post:GetCurrencyTransactions")
 }

@@ -96,7 +96,7 @@
 			- `balance_invalidated`: if balance is invalid
 			- `balance`: balance of wallet
 			- `balance_time`: last time to get balance
-			- `chain_id`: currency's chain id
+			- `chain_id`: currency's chain id. In non-evm currencies, -1 is tetenet and 1 is mainnet.
 		- Sample:
 		```
 		{
@@ -179,7 +179,7 @@
 			- `balance_invalidated`: if balance is invalid
 			- `balance`: balance of wallet
 			- `balance_time`: last time to get balance
-			- `chain_id`: currency's chain id
+			- `chain_id`: currency's chain id. In non-evm currencies, -1 is tetenet and 1 is mainnet.
 			- `wallet_name`: user defined wallet name
 		- Sample:
 		```
@@ -220,6 +220,7 @@
 			- `token_symbol`: token symbol in blockchain
 			- `token_contract_address`: contract address
 			- `token_decimals`: token decimal in blockchain
+			- `token_version`: token's EIP version
 			- `chain_id`: currency's chain id
 		- Sample:
 		```
@@ -231,12 +232,58 @@
             	"token_name": "etherlands chunk",
             	"token_symbol": "ELC",
             	"token_contract_address": "0x45072d88faea89dd42791808f8b491ab70b279fa",
+				"token_version": 20,
             	"token_decimals": "0",
            	 "chain_id": 3
         	}]
 		}
 		```
 
+#### Query currency transactions by currency, token and wallet address
+
+- **GET** /v1/api/transactions/currency
+	- Request
+		- Query
+			- `currency`: currency's BIP44
+			- `token`: contract address
+			- `start_index`: Index of starting transaction
+			- `limit`: Count of returning transaction
+			- `wallet_address`: (Optional) specified wallet address to query
+		- Sample:
+		```
+		/v1/api/transactions/currency
+		```
+	- Response
+		-	Params
+			-	`blockNumber`: block height of this transaction
+			-	`confirm_blocks`: already confirmed block numbers
+			-	`blockTimeStamp`: time to pack into block
+			-	`contract_address`: token contract address
+			-	`fee`: transaction fee
+			-	`id`: 
+			-	`result`: message for transaction fail
+			-	`success`: transaction is success or not
+			-	`data`: trasaction data
+			-	`total_count`: when start_index = 0, all item number will present in total_count
+		- Sample:
+		```
+		{
+		  "transactions_info": {
+		    "0x806058ca93570df0fd75439e1a15ada125f0f72ff52af1e3b8c5b1b1e7cd8b6e": {
+		      "blockNumber": 6362254,
+		      "confirm_blocks": 6320,
+		      "blockTimeStamp": 1568098193,
+		      "contract_address": "",
+		      "fee": "0.00021",
+		      "id": "",
+		      "result": "",
+		      "success": true,
+		      "data": "0x0xa9059cbb000000000000000000000000926adfba641fb58d1741fe6ce525d0075886ca5a00000000000000000000000000000000000000000000000029a2241af62c0000"
+		    }
+		  }
+		  "total_count": 101
+		}
+		```
 
 # Mock Server
 

@@ -82,6 +82,7 @@ type CurrencyInfo struct {
 	TokenSymbol          string `json:"token_symbol,omitempty"`
 	TokenContractAddress string `json:"token_contract_address,omitempty"`
 	TokenDecimals        string `json:"token_decimals,omitempty"`
+	TokenVersion         int64  `json:"token_version,omitempty"`
 	ChainID              int64  `json:"chain_id"`
 }
 
@@ -155,5 +156,50 @@ func GetSupportedCurrencies() (response *SupportedCurrenciesResponse, err error)
 	err = json.Unmarshal(resp, response)
 
 	logs.Debug("GetSupportedCurrencies() => ", response)
+	return
+}
+
+type GetCurrencyTransactionsRequest struct {
+	Currency      int64  `json:"currency"`
+	Token         string `json:"token"`
+	WalletAddress string `json:"wallet_address"`
+	StartIndex    int64  `json:"start_index"`
+	Limit         int64  `json:"limit"`
+}
+
+type CurrencyTransactionInfo struct {
+	BlockNumber     int64  `json:"blockNumber"`
+	ConfirmBlocks   int64  `json:"confirm_blocks"`
+	BlockTimeStamp  int64  `json:"blockTimeStamp"`
+	ContractAddress string `json:"contract_address"`
+	Fee             string `json:"fee"`
+	Result          string `json:"result"`
+	Success         bool   `json:"success"`
+	From            string `json:"from"`
+	To              string `json:"to"`
+	Amount          string `json:"amount"`
+	Data            string `json:"data"`
+}
+
+type GetCurrencyTransactionsResponse struct {
+	Transactions []CurrencyTransactionInfo `json:"transactions"`
+	TotalCount   int64                     `json:"total_count"`
+}
+
+func GetCurrencyTransactions(request GetCurrencyTransactionsRequest) (response *GetCurrencyTransactionsResponse, err error) {
+
+	jsonRequest, err := json.Marshal(request)
+	if err != nil {
+		return
+	}
+	resp, err := makeRequest("POST", "/v1/api/transactions/currency", nil, jsonRequest)
+	if err != nil {
+		return
+	}
+
+	response = &GetCurrencyTransactionsResponse{}
+	err = json.Unmarshal(resp, response)
+
+	logs.Debug("GetTransactionsCurrency() => ", response)
 	return
 }
