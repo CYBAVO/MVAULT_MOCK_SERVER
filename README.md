@@ -241,7 +241,7 @@
 
 #### Query currency transactions by currency, token and wallet address
 
-- **GET** /v1/api/transactions/currency
+- **POST** /v1/api/transactions/currency
 	- Request
 		- Query
 			- `currency`: currency's BIP44
