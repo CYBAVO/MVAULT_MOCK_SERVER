@@ -137,7 +137,7 @@ func (c *OuterController) GetSupportedCurrencies() {
 }
 
 // @Title Get wallet balance
-// @router /transactions/currency [get]
+// @router /transactions/currency [post]
 func (c *OuterController) GetCurrencyTransactions() {
 	defer c.ServeJSON()
 
