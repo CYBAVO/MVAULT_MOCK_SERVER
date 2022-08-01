@@ -154,3 +154,20 @@ func (c *OuterController) GetCurrencyTransactions() {
 
 	c.Data["json"] = resp
 }
+
+func (c *OuterController) RefreshBalanceCache() {
+	defer c.ServeJSON()
+
+	var request api.RefreshBalanceRequest
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &request)
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	resp, err := api.RefreshBalanceCache(request)
+	if err != nil {
+		logs.Error("api.RefreshBalanceCache failed", err)
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+
+	c.Data["json"] = resp
+}

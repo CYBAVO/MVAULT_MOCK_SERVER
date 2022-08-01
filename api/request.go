@@ -203,3 +203,36 @@ func GetCurrencyTransactions(request GetCurrencyTransactionsRequest) (response *
 	logs.Debug("GetTransactionsCurrency() => ", response)
 	return
 }
+
+type WalletWithToken struct {
+	TokenAddress  string `json:"token_address"`
+	WalletAddress string `json:"wallet_address"`
+}
+type RefreshBalanceRequest struct { // request and response
+	Currency int64             `json:"currency"`
+	Wallets  []WalletWithToken `json:"wallets"`
+}
+
+type RefreshBalanceResponse struct { // request and response
+	Currency         int64    `json:"currency"`
+	SuccessCount     int      `json:"success_count"`
+	UnmatchedWallets []string `json:"unmatched_wallets"`
+}
+
+func RefreshBalanceCache(request RefreshBalanceRequest) (response *RefreshBalanceResponse, err error) {
+
+	jsonRequest, err := json.Marshal(request)
+	if err != nil {
+		return
+	}
+	resp, err := makeRequest("POST", "/v1/api/wallets/balance/refresh", nil, jsonRequest)
+	if err != nil {
+		return
+	}
+
+	response = &RefreshBalanceResponse{}
+	err = json.Unmarshal(resp, response)
+
+	logs.Debug("RefreshBalanceCache() => ", response)
+	return
+}

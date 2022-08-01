@@ -285,6 +285,48 @@
 		}
 		```
 
+#### Refresh wallet balance to sync the vaule from blokchain
+
+- **POST** /v1/api/wallets/balance/refresh
+	- Request
+		- Query
+			- `currency`: currency's BIP44
+			- `wallets`: wallet list
+				- `token_address`: empty or contract address 
+				- `wallet_address`: user's wallet address in system
+		- Sample:
+		```
+		/v1/api/wallets/balance/refresh
+		{
+			"currency":60,
+			"wallets":[
+        		{
+            		"token_address": "",
+            		"wallet_address": "0x8C83bd97b5521eE8A1955401489184eE775D458A"
+        		},
+        		{ 
+            		"token_address": "0x45072d88faea89dd42791808f8b491ab70b279fa",
+            		"wallet_address": "0x8C83bd97b5521eE8A1955401489184eE775D458A"
+        		}
+    		]
+		}
+		```
+	- Response
+		-	Params
+			-	`currency`: currency's BIP44
+			-	`success_count`: the number of wallets that successfully refreshed the amount
+			-	`unmatched_wallets`: unmatched wallet list from request
+		- Sample:
+		```
+		{
+    		"currency": 60,
+    		"success_count": 1,
+    		"unmatched_wallets": [
+        		"0x45072d88faea89dd42791808f8b491ab70b279fa:0x8C83bd97b5521eE8A1955401489184eE775D458A"
+    		]
+		}
+		```
+
 # Mock Server
 
 ### How to build
@@ -338,4 +380,10 @@ curl http://localhost:8889/v1/mock/user/wallets?unique_token=GOOG-12345abc&start
 
 ```
 curl http://localhost:8889/v1/mock/wallets/currencies
+```
+
+### Refresh wallet balance to sync the vaule from blokchain
+
+```
+curl http://localhost:8889/v1/mock/wallets/balance/refresh
 ```
