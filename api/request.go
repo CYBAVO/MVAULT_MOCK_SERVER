@@ -179,6 +179,7 @@ type CurrencyTransactionInfo struct {
 	To              string `json:"to"`
 	Amount          string `json:"amount"`
 	Data            string `json:"data"`
+	TXID            string `json:"txid"`
 }
 
 type GetCurrencyTransactionsResponse struct {
